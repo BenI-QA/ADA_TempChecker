@@ -4,6 +4,7 @@ with Ada.Integer_Text_IO; use Ada.Integer_Text_IO;
 with Ada.Exceptions;  use Ada.Exceptions;
 with fahrenheit; use fahrenheit;
 with celsius; use celsius;
+with tempCritCheck; use tempCritCheck;
 with exceptions; use exceptions;
 
 procedure Main is
@@ -20,11 +21,11 @@ procedure Main is
 
    num :Integer range 1 ..5;
    tempF,tempC: Float;
-   critical: Boolean;
+
 
   procedure get_data(data:temp_data) is --subprogram
    begin
-      Put(data.TempF, aft => 2, exp => 0);
+      Put(data.TempF, aft => 2, exp => 0); --aft (set decimal place)
       Put(" ");
       Put(data.TempC, aft => 2, exp => 0);
       Put(" ");
@@ -36,7 +37,7 @@ procedure Main is
    procedure menu is --subprogram
 
    Index: Integer :=0;
-
+   critical: Boolean := FALSE;
    type record_Array is array (0 .. 50) of temp_data;  --array
    stuff : record_Array;
 
@@ -54,22 +55,17 @@ procedure Main is
 
       case num is     --switch case
          when 1 =>
+
             Put_Line(" Convert to Fahrenheit ");
             Put_Line(" Input Temperature F: ");
 
             Get(tempF);
 
-
-            if (0.0<= tempF) or (tempF >= 15.0) then
-               critical := True;
-            else
-               critical := False;
-            end if;
-
             tempC := Convert_to_C(tempF);
             records.TempF := tempF;
             records.TempC := tempC;
             records.Critical := critical;
+
             get_data(records);
 
             Index:= Index + 1;
@@ -77,32 +73,28 @@ procedure Main is
             Put_Line(" ");
 
          when 2 =>
+
             Put_Line("Covert to Celsius ");
             Put_Line(" Input Temperature C: ");
             Get(tempC);
 
-
-            if (-20.0 <= tempC) or (tempC >= 15.0) then
-               critical := True;
-            else
-               critical := False;
-            end if;
-
             tempF := Convert_to_F(tempC);
+
             records.TempC := tempC;
             records.TempF := tempF;
+            critical := checkC(tempC);
             records.Critical := critical;
             get_data(records);
             Index:= Index + 1;
             stuff(Index) := records;
             Put_Line(" ");
           when 3 =>
-
+               Put_Line(" ");
                for I in 1..Index loop --for loop
-                  Put_Line(" ");
+
                   get_data(stuff (I));
                end loop;
-           .
+               Put_Line(" ");
             when others =>
 
 
@@ -115,6 +107,6 @@ procedure Main is
    begin
    menu;
    exception --exception
-       when Constraint_Error => Put_Line("Out of range, Enter a select an option from the menu");
-
+       when Constraint_Error => Put_Line("Out of range, Enter an option from the menu");
+       when Data_Error => Put_Line("Please enter a number");
    end Main;
