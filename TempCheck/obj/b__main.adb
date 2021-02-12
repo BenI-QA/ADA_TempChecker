@@ -32,6 +32,7 @@ package body ada_main is
    E152 : Short_Integer; pragma Import (Ada, E152, "celsius_E");
    E153 : Short_Integer; pragma Import (Ada, E153, "exceptions_E");
    E155 : Short_Integer; pragma Import (Ada, E155, "fahrenheit_E");
+   E159 : Short_Integer; pragma Import (Ada, E159, "tempcritcheck_E");
 
    Sec_Default_Sized_Stacks : array (1 .. 1) of aliased System.Secondary_Stack.SS_Stack (System.Parameters.Runtime_Default_Sec_Stack_Size);
 
@@ -207,6 +208,7 @@ package body ada_main is
       Exceptions'Elab_Spec;
       E153 := E153 + 1;
       E155 := E155 + 1;
+      E159 := E159 + 1;
    end adainit;
 
    procedure Ada_Main_Program;
@@ -247,6 +249,7 @@ package body ada_main is
    --   C:\Users\p\Documents\QA-Testing\ADA\TempCheck\obj\celsius.o
    --   C:\Users\p\Documents\QA-Testing\ADA\TempCheck\obj\exceptions.o
    --   C:\Users\p\Documents\QA-Testing\ADA\TempCheck\obj\fahrenheit.o
+   --   C:\Users\p\Documents\QA-Testing\ADA\TempCheck\obj\tempCritCheck.o
    --   C:\Users\p\Documents\QA-Testing\ADA\TempCheck\obj\main.o
    --   -LC:\Users\p\Documents\QA-Testing\ADA\TempCheck\obj\
    --   -LC:\Users\p\Documents\QA-Testing\ADA\TempCheck\obj\

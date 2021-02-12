@@ -37,7 +37,7 @@ package ada_main is
    pragma Export (C, main, "main");
 
    type Version_32 is mod 2 ** 32;
-   u00001 : constant Version_32 := 16#e9513799#;
+   u00001 : constant Version_32 := 16#023b471b#;
    pragma Export (C, u00001, "mainB");
    u00002 : constant Version_32 := 16#67c8d842#;
    pragma Export (C, u00002, "system__standard_libraryB");
@@ -351,10 +351,14 @@ package ada_main is
    pragma Export (C, u00156, "system__img_boolB");
    u00157 : constant Version_32 := 16#c779f0d3#;
    pragma Export (C, u00157, "system__img_boolS");
-   u00158 : constant Version_32 := 16#eca5ecae#;
-   pragma Export (C, u00158, "system__memoryB");
-   u00159 : constant Version_32 := 16#6bdde70c#;
-   pragma Export (C, u00159, "system__memoryS");
+   u00158 : constant Version_32 := 16#f28588bf#;
+   pragma Export (C, u00158, "tempcritcheckB");
+   u00159 : constant Version_32 := 16#ffafe44b#;
+   pragma Export (C, u00159, "tempcritcheckS");
+   u00160 : constant Version_32 := 16#eca5ecae#;
+   pragma Export (C, u00160, "system__memoryB");
+   u00161 : constant Version_32 := 16#6bdde70c#;
+   pragma Export (C, u00161, "system__memoryS");
 
    --  BEGIN ELABORATION ORDER
    --  ada%s
@@ -515,6 +519,8 @@ package ada_main is
    --  exceptions%s
    --  fahrenheit%s
    --  fahrenheit%b
+   --  tempcritcheck%s
+   --  tempcritcheck%b
    --  main%b
    --  END ELABORATION ORDER
 
