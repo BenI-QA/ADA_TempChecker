@@ -25,10 +25,13 @@ procedure Main is
 
   procedure get_data(data:temp_data) is --subprogram
    begin
+      Put("Fahrenheit:");
       Put(data.TempF, aft => 2, exp => 0); --aft (set decimal place)
-      Put(" ");
+      Put("  ");
+      Put("Celsius:");
       Put(data.TempC, aft => 2, exp => 0);
-      Put(" ");
+      Put("  ");
+      Put("Critical:");
       Put_Line( Boolean'Image (data.Critical));
 
 
@@ -40,6 +43,8 @@ procedure Main is
    critical: Boolean := FALSE;
    type record_Array is array (0 .. 50) of temp_data;  --array
    stuff : record_Array;
+
+   Max, Min: Float :=0.0;
 
    records: temp_data :=(tempF,tempC,critical); --record type
    begin
@@ -67,7 +72,11 @@ procedure Main is
             records.Critical := critical;
 
             get_data(records);
-
+            if(TempC > Max) then
+               Max:= TempC;
+            elsif(TempC < Min) then
+               Min:= TempC;
+            end if;
             Index:= Index + 1;
             stuff(Index) := records;
             Put_Line(" ");
@@ -84,16 +93,32 @@ procedure Main is
             records.TempF := tempF;
             critical := checkC(tempC);
             records.Critical := critical;
+            if(TempC > Max) then
+               Max:= TempC;
+            elsif(TempC < Min) then
+               Min:= TempC;
+            end if;
             get_data(records);
             Index:= Index + 1;
             stuff(Index) := records;
             Put_Line(" ");
-          when 3 =>
+            when 3 =>
+
+               Put_Line(" ");
+               Put("Max Temperature Recorded in C: ");
+               Put(" ");
+               Put(Max, aft => 2, exp => 0);
+               Put(" ");
+               Put(" Min Temperature Recorded in C: ");
+               Put(" ");
+               Put(Min, aft => 2, exp => 0);
                Put_Line(" ");
                for I in 1..Index loop --for loop
 
                   get_data(stuff (I));
                end loop;
+
+
                Put_Line(" ");
             when others =>
 
